@@ -1,145 +1,193 @@
-# Capture-DevContext
+# 📦 Capture-DevContext
 
-**PowerShell cmdlet that captures project root into an AI-ready YAML Dev Context snapshot—hierarchy + selective file content in one shot.**
+[![PowerShell](https://img.shields.io/badge/PowerShell-5.1%2B-blue?logo=powershell)](https://docs.microsoft.com/en-us/powershell/)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![GitHub release](https://img.shields.io/github/release/fbratten/capture-devcontext.svg)](https://github.com/fbratten/capture-devcontext/releases)
+[![GitHub stars](https://img.shields.io/github/stars/fbratten/capture-devcontext.svg)](https://github.com/fbratten/capture-devcontext/stargazers)
 
-A robust, self-contained PowerShell script to scan a software project directory, capture its folder structure, and extract the content of specific source files into a single, structured YAML file.
+> **PowerShell cmdlet that captures project root into an AI-ready YAML Dev Context snapshot—hierarchy + selective file content in one shot.**
 
-This tool is ideal for creating comprehensive snapshots of a project's source code for AI analysis, archiving, or automated reviews.
+A robust, self-contained PowerShell script that scans software project directories, captures folder structures, and extracts file content into a structured YAML file. Perfect for creating comprehensive project snapshots for AI analysis, code reviews, or documentation.
 
-## Features
+---
 
-- **No Dependencies:** The script is fully self-contained and requires no external modules like `PSYaml`.
-    
-- **Structured YAML Output:** Generates a clean, nested YAML file representing the project's file system.
-    
-- **Highly Configurable:**
-    
-    - Specify which file extensions to include.
-        
-    - Define folders and files to exclude (with wildcard support).
-        
-    - Limit the recursion depth of the scan.
-        
-- **`.gitignore` Integration:** Automatically uses the project's `.gitignore` file to determine exclusions.
-    
-- **Verbose Logging:** Use the `-Verbose` flag to see a detailed log of the script's execution.
-    
+## 📋 Table of Contents
 
-## Requirements
+- [✨ Features](#-features)
+- [⚡ Quick Start](#-quick-start)
+- [📋 Requirements](#-requirements)
+- [🚀 Usage](#-usage)
+- [📖 Examples](#-examples)
+- [⚙️ Parameters](#️-parameters)
+- [🤝 Contributing](#-contributing)
+- [📄 License](#-license)
 
-- PowerShell 5.1 or later.
-    
+---
 
-## How to Execute
+## ✨ Features
 
-To run the script, use the following syntax from your PowerShell terminal:
+🔧 **No Dependencies:** Fully self-contained - no external modules like `PSYaml` required
 
+📁 **Structured YAML Output:** Clean, nested YAML representing your project's file system
+
+⚙️ **Highly Configurable:**
+   - 📂 Specify which file extensions to include
+   - 🚫 Define folders and files to exclude (with wildcard support)
+   - 📏 Limit recursion depth for large projects
+
+🔍 **`.gitignore` Integration:** Automatically respects your project's `.gitignore` rules
+
+📝 **Verbose Logging:** Detailed execution logs with the `-Verbose` flag
+
+🎯 **AI-Ready Format:** Optimized output structure for AI analysis and processing
+
+---
+
+## ⚡ Quick Start
+
+```powershell
+# Basic usage - scan a project and create YAML snapshot
+.\Capture-DevContext.ps1 -Path "C:\my-project" -OutputPath "C:\temp\project-snapshot.yml"
+
+# Advanced usage - with .gitignore integration and custom filters
+.\Capture-DevContext.ps1 -Path "C:\my-repo" -OutputPath "snapshot.yml" -UseGitIgnore -Force -Verbose
 ```
-.\Capture-DevContext.ps1 -Path <path_to_project> -OutputPath <path_to_output.yml> [options]
+
+---
+
+## 📋 Requirements
+
+- 🖥️ **PowerShell 5.1** or later
+- 🪟 **Windows, macOS, or Linux** (PowerShell Core supported)
+
+---
+
+## 🚀 Usage
+
+```powershell
+.\Capture-DevContext.ps1 -Path <path_to_project> -OutputPath <output_file.yml> [options]
 ```
 
-### **Execution Examples**
+---
 
-Here are several examples for unique combinations of flags:
+## 📖 Examples
 
-#### 1. Basic Scan
+### 🔰 1. Basic Scan
 
-This is the simplest execution, using default settings for included files and exclusions.
+Simple execution with default settings:
 
-- **Command:**
-    
-    ```
-    .\Capture-DevContext.ps1 -Path "C:\dev\my-simple-app" -OutputPath "C:\temp\my-simple-app.yml"
-    ```
-    
-- **What it does:**
-    
-    - Scans the entire `C:\dev\my-simple-app` directory.
-        
-    - Uses the default list of file extensions (e.g., `.js`, `.py`, `README.md`).
-        
-    - Uses the default exclusion list (e.g., `node_modules`, `.git`).
-        
-    - Saves the output to `my-simple-app.yml`. It will fail if the file already exists.
-        
+```powershell
+.\Capture-DevContext.ps1 -Path "C:\dev\my-app" -OutputPath "C:\temp\my-app.yml"
+```
 
-#### 2. Custom File Types and Exclusions with Verbose Logging
+**What it does:**
+- 📂 Scans the entire `my-app` directory
+- 📋 Uses default file extensions (`.js`, `.py`, `README.md`, etc.)
+- 🚫 Uses default exclusions (`node_modules`, `.git`, etc.)
+- 💾 Saves output to `my-app.yml`
 
-Useful for projects with non-standard file types or for when you want to see detailed output during the scan.
+### 🎯 2. Custom File Types with Verbose Logging
 
-- **Command:**
-    
-    ```
-    .\Capture-DevContext.ps1 -Path "C:\dev\data-science-project" -OutputPath "C:\temp\data-science.yml" -IncludeExtension ".py", ".ipynb", ".csv" -ExcludePath "venv", "data", "*.tmp" -Verbose
-    ```
-    
-- **What it does:**
-    
-    - Scans `C:\dev\data-science-project`.
-        
-    - **Includes only** Python scripts (`.py`), Jupyter notebooks (`.ipynb`), and CSV files (`.csv`).
-        
-    - **Excludes** any folder named `venv` or `data`, and any file ending in `.tmp`.
-        
-    - The `-Verbose` flag prints detailed logs to the terminal.
-        
+Perfect for specialized projects:
 
-#### 3. Using `.gitignore` and Overwriting the Output
+```powershell
+.\Capture-DevContext.ps1 -Path "C:\dev\data-science-project" -OutputPath "C:\temp\data-science.yml" -IncludeExtension ".py", ".ipynb", ".csv" -ExcludePath "venv", "data", "*.tmp" -Verbose
+```
 
-The ideal command for scanning a Git repository, as it respects the project's own ignore rules.
+**What it does:**
+- 🐍 **Includes only:** Python scripts, Jupyter notebooks, CSV files
+- 🚫 **Excludes:** `venv`, `data` folders, and `*.tmp` files
+- 📊 **Verbose logging:** Detailed execution information
 
-- **Command:**
-    
-    ```
-    .\Capture-DevContext.ps1 -Path "C:\dev\my-git-repo" -OutputPath "C:\temp\repo-snapshot.yml" -UseGitIgnore -Force
-    ```
-    
-- **What it does:**
-    
-    - Scans `C:\dev\my-git-repo`.
-        
-    - The `-UseGitIgnore` flag tells the script to find and read the `.gitignore` file in the root of the project. The patterns found within are added to the exclusion list.
-        
-    - The `-Force` flag ensures that if `repo-snapshot.yml` already exists, it will be overwritten without asking.
-        
+### 🔄 3. Git Repository Scan (Recommended)
 
-#### 4. Limited Depth Scan
+Ideal for Git repositories:
 
-Use this when you only care about the top-level structure of a large and deeply nested project.
+```powershell
+.\Capture-DevContext.ps1 -Path "C:\dev\my-repo" -OutputPath "C:\temp\repo-snapshot.yml" -UseGitIgnore -Force
+```
 
-- **Command:**
-    
-    ```
-    .\Capture-DevContext.ps1 -Path "C:\dev\mono-repo" -OutputPath "C:\temp\mono-repo-overview.yml" -Depth 3
-    ```
-    
-- **What it does:**
-    
-    - Scans the `C:\dev\mono-repo` directory.
-        
-    - The `-Depth` 3 flag stops the scan three levels down from the root.
-        
+**What it does:**
+- 📂 Scans Git repository
+- 🔍 **Reads `.gitignore`** and adds patterns to exclusions
+- 💪 **Force flag:** Overwrites existing output file
 
-#### 5. Complex Combination for a Web Project
+### 📏 4. Shallow Scan for Large Projects
 
-This example combines multiple flags for a finely-tuned scan of a typical web development project.
+High-level overview of complex projects:
 
-- **Command:**
-    
-    ```
-    .\Capture-DevContext.ps1 -Path "D:\projects\ecommerce-site" -OutputPath "D:\backups\ecommerce.yml" -IncludeExtension ".js", ".html", ".css", ".json", "Dockerfile" -ExcludePath "dist", "build", "coverage" -UseGitIgnore -Force -Verbose
-    ```
-    
-- **What it does:**
-    
-    - Scans `D:\projects\ecommerce-site`.
-        
-    - **Includes only** `.js`, `.html`, `.css`, `.json` files, and the `Dockerfile`.
-        
-    - **Explicitly excludes** the `dist`, `build`, and `coverage` folders while also using `.gitignore`.
-        
-    - Overwrites the output file (`-Force`) and prints detailed logs (`-Verbose`).
+```powershell
+.\Capture-DevContext.ps1 -Path "C:\dev\mono-repo" -OutputPath "C:\temp\overview.yml" -Depth 3
+```
 
-## Repository
+**What it does:**
+- 📊 **Depth limit:** Only scans 3 levels deep
+- ⚡ **Fast execution:** Perfect for large, nested projects
 
-GitHub repository: [https://github.com/fbratten/capture-devcontext](https://github.com/fbratten/capture-devcontext)
+### 🌐 5. Web Project with Custom Configuration
+
+Comprehensive example for web development:
+
+```powershell
+.\Capture-DevContext.ps1 -Path "D:\projects\ecommerce-site" -OutputPath "D:\backups\ecommerce.yml" -IncludeExtension ".js", ".html", ".css", ".json", "Dockerfile" -ExcludePath "dist", "build", "coverage" -UseGitIgnore -Force -Verbose
+```
+
+**What it does:**
+- 🌐 **Web-focused:** Includes web files (JS, HTML, CSS, JSON, Dockerfile)
+- 🚫 **Smart exclusions:** Skips build directories + `.gitignore` patterns
+- 📊 **Full logging:** Complete execution details
+- 💪 **Force overwrite:** Replaces existing files
+
+---
+
+## ⚙️ Parameters
+
+| Parameter | Type | Required | Description |
+|-----------|------|----------|-------------|
+| `-Path` | String | ✅ | Root path of the project to scan |
+| `-OutputPath` | String | ✅ | Full path for the output YAML file |
+| `-IncludeExtension` | String[] | ❌ | File extensions to include (default: common code files) |
+| `-ExcludePath` | String[] | ❌ | Folders/files to exclude (supports wildcards) |
+| `-Depth` | Int | ❌ | Maximum recursion depth (default: unlimited) |
+| `-Force` | Switch | ❌ | Overwrite existing output file |
+| `-UseGitIgnore` | Switch | ❌ | Include `.gitignore` patterns in exclusions |
+| `-Verbose` | Switch | ❌ | Enable detailed logging |
+
+---
+
+## 🤝 Contributing
+
+Contributions are welcome! Here's how you can help:
+
+1. 🍴 **Fork** the repository
+2. 🌿 **Create** a feature branch (`git checkout -b feature/amazing-feature`)
+3. 📝 **Commit** your changes (`git commit -m 'Add amazing feature'`)
+4. 📤 **Push** to the branch (`git push origin feature/amazing-feature`)
+5. 🔄 **Open** a Pull Request
+
+### 🐛 Reporting Issues
+
+Found a bug? Please open an [issue](https://github.com/fbratten/capture-devcontext/issues) with:
+- 🖥️ **Environment:** PowerShell version, OS
+- 📝 **Description:** What happened vs. what you expected
+- 🔄 **Steps:** How to reproduce the issue
+
+---
+
+## 📄 License
+
+This project is licensed under the **MIT License** - see the [LICENSE](LICENSE) file for details.
+
+---
+
+## 🔗 Links
+
+- 📦 **Repository:** [https://github.com/fbratten/capture-devcontext](https://github.com/fbratten/capture-devcontext)
+- 📋 **Issues:** [Report bugs or request features](https://github.com/fbratten/capture-devcontext/issues)
+- 📖 **Wiki:** [Documentation and guides](https://github.com/fbratten/capture-devcontext/wiki)
+
+---
+
+<p align="center">
+  <strong>⭐ If this project helped you, please consider giving it a star! ⭐</strong>
+</p>
