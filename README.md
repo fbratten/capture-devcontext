@@ -5,7 +5,7 @@
 [![GitHub release](https://img.shields.io/github/release/fbratten/capture-devcontext.svg)](https://github.com/fbratten/capture-devcontext/releases)
 [![GitHub stars](https://img.shields.io/github/stars/fbratten/capture-devcontext.svg)](https://github.com/fbratten/capture-devcontext/stargazers)
 
-> **PowerShell cmdlet that captures project root into an AI-ready YAML Dev Context snapshot—hierarchy + selective file content in one shot.**
+> **PowerShell cmdlet that captures project root into an AI-ready YAML Dev Context snapshot-hierarchy + selective file content in one shot.**
 
 A robust, self-contained PowerShell script that scans software project directories, captures folder structures, and extracts file content into a structured YAML file. Perfect for creating comprehensive project snapshots for AI analysis, code reviews, or documentation.
 
