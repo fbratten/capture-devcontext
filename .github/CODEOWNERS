@@ -1,0 +1,26 @@
+# CODEOWNERS file for Capture-DevContext
+# 
+# This file defines individuals or teams that are responsible for code in this repository.
+# Code owners are automatically requested for review when someone opens a pull request
+# that modifies code that they own.
+#
+# For more information about CODEOWNERS, see:
+# https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/about-code-owners
+
+# Global ownership - fbratten owns everything by default
+* @fbratten
+
+# PowerShell script files - ensure PowerShell expertise for script changes
+*.ps1 @fbratten
+
+# Documentation files - maintain documentation quality
+*.md @fbratten
+docs/ @fbratten
+
+# Configuration and workflow files
+.github/ @fbratten
+*.yml @fbratten
+*.yaml @fbratten
+
+# License and legal files
+LICENSE @fbratten
